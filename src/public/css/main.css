@@ -1,0 +1,127 @@
+body,
+html {
+  background-color: rgb(0, 0, 0);
+}
+
+a.boton {
+  display: inline-block; /* Hace que se comporte como un bloque en línea */
+  padding: 10px 20px; /* Espaciado interno para que parezca un botón */
+  background-color: #007bff; /* Color de fondo (puedes cambiarlo a lo que prefieras) */
+  color: white; /* Color del texto */
+  text-align: center; /* Centra el texto */
+  text-decoration: none; /* Elimina el subrayado del enlace */
+  border-radius: 5px; /* Bordes redondeados para que parezca un botón */
+  font-size: 16px; /* Tamaño de letra */
+  font-weight: bold; /* Hace que el texto sea más grueso */
+  transition: background-color 0.3s ease; /* Transición suave para efectos */
+}
+
+a.boton:hover {
+  background-color: #0056b3; /* Color del botón al pasar el ratón */
+}
+
+button.boton {
+  display: inline-block; /* Hace que se comporte como un bloque en línea */
+  padding: 10px 20px; /* Espaciado interno para que parezca un botón */
+  background-color: #007bff; /* Color de fondo (puedes cambiarlo a lo que prefieras) */
+  color: white; /* Color del texto */
+  text-align: center; /* Centra el texto */
+  text-decoration: none; /* Elimina el subrayado del enlace */
+  border-radius: 5px; /* Bordes redondeados para que parezca un botón */
+  font-size: 12px; /* Tamaño de letra */
+  font-weight: bold; /* Hace que el texto sea más grueso */
+  transition: background-color 0.3s ease; /* Transición suave para efectos */
+}
+
+button.boton:hover {
+  background-color: #0056b3; /* Color del botón al pasar el ratón */
+}
+
+.contenedor-productos {
+  width: 100%;
+  height: 70%;
+  display: flex;
+  flex-wrap: wrap; /* Permite que los productos se envuelvan en varias filas */
+  gap: 30px; /* Espacio entre los div de productos */
+}
+
+.producto {
+  overflow: hidden; /* Oculta la barra de desplazamiento por defecto */
+  text-align: center;
+  color: white;
+  width: 320px;
+  height: 470px;
+  /*flex: 0 0 300px;  Cada producto tendrá un ancho mínimo de 200px y crecerá para llenar el espacio disponible */
+  padding: 20px;
+  background-color: rgb(36, 36, 36);
+  border: 1px solid #000;
+  box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en el tamaño total */
+}
+.producto:hover {
+  overflow: auto; /* Muestra la barra de desplazamiento al pasar el mouse */
+}
+
+.contenedor-tabla {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+}
+
+table {
+  border-collapse: collapse;
+  text-align: center;
+  background-color: rgb(36, 36, 36);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #212121;
+  color: white;
+  padding: 10px;
+}
+
+th {
+  background-color: #060606;
+}
+input.d {
+  transition: background-color 0.3s ease; /* Transición suave para efectos */
+}
+input.d:hover {
+  background-color: #dadada; /* Color del botón al pasar el ratón */
+}
+
+textarea.d {
+  transition: background-color 0.3s ease; /* Transición suave para efectos */
+}
+textarea.d:hover {
+  background-color: #dadada; /* Color del botón al pasar el ratón */
+}
+.adjustable-paragraph {
+  max-width: 400px; /* Ancho máximo */
+  max-height: 200px; /* Altura máxima */
+  overflow-y: hidden; /* Oculta la barra de desplazamiento por defecto */
+  line-height: 1.5; /* Altura de línea */
+  border: 1px solid #ccc; /* Borde para visualizar el área del párrafo */
+  padding: 10px; /* Espaciado interno */
+  transition: overflow-y 0.3s; /* Transición suave para el overflow */
+}
+
+.adjustable-paragraph:hover {
+  overflow-y: auto; /* Muestra la barra de desplazamiento al pasar el mouse */
+}
+
+.whatsapp-link {
+  color: #25d366; /* Color verde típico de WhatsApp */
+  font-weight: bold;
+  text-decoration: none; /* Elimina el subrayado */
+}
+
+.whatsapp-link:hover {
+  color: #128c7e; /* Un verde más oscuro al pasar el cursor */
+  text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+.whatsapp-link i {
+  margin-right: 5px; /* Espacio entre el ícono y el texto */
+}

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Productos</title>
+    <%- include('../partials/head') %>
+    <script></script>
+  </head>
+  <body>
+    <!--NAVIGATIONS-->
+    <%- include('../partials/navigationadmin') %>
+
+    <!--MAIN CONTENT-->
+    <h3
+      style="
+        text-align: center;
+        color: white;
+        margin-top: 1%;
+        margin-bottom: 3%;
+      "
+    >
+      Productos registrados
+    </h3>
+    <div class="contenedor-tabla container">
+      <table border="1px" style="width: 80%; overflow-wrap: normal">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Categoria</th>
+            <th>Descripcion</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% if (result.length > 0) { %> <% result.forEach((producto) => { %>
+          <tr>
+            <form
+              action="/update-productoadmin"
+              method="POST"
+              id="miFormulario2"
+            >
+              <td><%= producto.id %></td>
+              <td>
+                <img
+                  width="50px"
+                  height="50px"
+                  src="/img/productos/<%= producto.imagen %>"
+                  alt="imagenproducto"
+                />
+              </td>
+              <td>
+                <input
+                  style="
+                    width: 130px;
+                    background-color: rgb(36, 36, 36);
+                    color: white;
+                    text-align: center;
+                  "
+                  type="text"
+                  name="nombre"
+                  value="<%= producto.nombre %>"
+                  required
+                />
+              </td>
+              <td>
+                <select
+                  style="
+                    width: 100px;
+                    background-color: rgb(36, 36, 36);
+                    color: white;
+                    text-align: center;
+                  "
+                  name="categoria"
+                  id=""
+                >
+                  <option default><%= producto.categoria %></option>
+                  <option>Electrónica</option>
+                  <option>Moda</option>
+                  <option>Hogar y Jardín</option>
+                  <option>Salud y Belleza</option>
+                  <option>Deportes y Aire Libre</option>
+                  <option>Juguetes y Juegos</option>
+                  <option>Automotriz</option>
+                  <option>Tecnología</option>
+                  <option>Alimentos y Bebidas</option>
+                  <option>Productos para Mascotas</option>
+                  <option>Artículos de Oficina</option>
+                  <option>Artículos de Viaje</option>
+                  <option>Otro</option>
+                </select>
+              </td>
+              <td>
+                <textarea
+                  class="adjustable-paragraph"
+                  required
+                  style="
+                    width: 400px;
+                    height: 70px;
+                    background-color: rgb(36, 36, 36);
+                    color: white;
+                    text-align: center;
+                    resize: none;
+                  "
+                  name="descripcion"
+                >
+<%= decodeURIComponent(producto.descripcion) %></textarea
+                >
+              </td>
+              <td>
+                <input
+                  style="
+                    width: 70px;
+                    background-color: rgb(36, 36, 36);
+                    color: white;
+                    text-align: center;
+                  "
+                  type="number"
+                  min="1"
+                  name="precio"
+                  step="0.01"
+                  value="<%= producto.precio %>"
+                  required
+                />
+              </td>
+              <td>
+                <input
+                  style="
+                    width: 70px;
+                    background-color: rgb(36, 36, 36);
+                    color: white;
+                    text-align: center;
+                  "
+                  type="number"
+                  name="stock"
+                  step="1"
+                  min="1"
+                  value="<%= producto.stock %>"
+                  required
+                />
+              </td>
+              <input type="hidden" value="<%= producto.id %>" name="id" />
+              <td>
+                <button
+                  type="submit"
+                  onclick="updateProduct()"
+                  style="
+                    background: none;
+                    border: none;
+                    color: rgb(255, 252, 99);
+                  "
+                >
+                  <i class="fas fa-edit"></i>
+                </button>
+              </td>
+              <td>
+                <a
+                  href="/remover-productoadmin/<%= producto.id %>"
+                  class="boton-remover"
+                  style="color: red"
+                >
+                  <i class="fas fa-trash-alt"></i>
+                </a>
+              </td>
+            </form>
+          </tr>
+          <% }) } else { %>
+          <tr>
+            <td colspan="4">No hay productos existentes.</td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+    <br /><br />
+    <h3 style="text-align: center; color: white">Ingrese un producto:</h3>
+    <br /><br />
+    <form
+      action="/addProduct"
+      id="miFormulario"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <div class="container">
+        <div style="text-align: center; margin-bottom: 3%">
+          <div style="margin-bottom: 2%">
+            <input
+              required
+              class="d"
+              type="text"
+              name="nombre"
+              placeholder="Nombre"
+            />
+            <select style="height: 30px" required name="categoria">
+              <option>Electrónica</option>
+              <option>Moda</option>
+              <option>Hogar y Jardín</option>
+              <option>Salud y Belleza</option>
+              <option>Deportes y Aire Libre</option>
+              <option>Juguetes y Juegos</option>
+              <option>Automotriz</option>
+              <option>Tecnología</option>
+              <option>Alimentos y Bebidas</option>
+              <option>Productos para Mascotas</option>
+              <option>Artículos de Oficina</option>
+              <option>Artículos de Viaje</option>
+              <option>Otro</option>
+            </select>
+          </div>
+
+          <div>
+            <input
+              required
+              style="
+                -webkit-appearance: none;
+                margin: 0;
+                -moz-appearance: textfield;
+                appearance: none;
+              "
+              class="d"
+              type="number"
+              min="1"
+              name="precio"
+              step="0.01"
+              placeholder="Precio"
+            />
+            <input
+              required
+              class="d"
+              type="number"
+              name="stock"
+              min="1"
+              step="1"
+              placeholder="Stock"
+            />
+          </div>
+          <textarea
+            style="margin-top: 2%; width: 400px; resize: none"
+            required
+            class="d"
+            placeholder="Descripción del producto"
+            name="descripcion"
+          ></textarea
+          ><br /><br />
+          <p style="color: white">Ingrese una imagen</p>
+          <input required type="file" name="imagen" />
+        </div>
+
+        <div style="text-align: center; margin-bottom: 5%">
+          <button class="boton" type="submit">Agregar producto</button>
+        </div>
+      </div>
+    </form>
+
+    <!--FOOTER-->
+    <%- include('../partials/footer') %>
+  </body>
+</html>

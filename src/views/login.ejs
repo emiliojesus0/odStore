@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio de sesión</title>
+    <%- include('partials/head') %>
+  </head>
+  <body>
+    <div style="text-align: center; color: white; margin-top: 5%">
+      <div style="margin-top: 5%; margin-left: 5%; width: 30px; height: 30px">
+        <a href="/" class="boton-remover"
+          ><i style="font-size: 40px" class="fas fa-arrow-left"></i
+        ></a>
+      </div>
+      <h2>INICIO DE SESIÓN</h2>
+
+      <img width="150" height="150" src="/img/odstorem.jpg" alt="odstore" />
+      <br /><br />
+      <form action="/auth" method="post">
+        <input
+          required
+          class="d"
+          style="width: 200px; height: 30px"
+          type="text"
+          name="usuario"
+          placeholder="Usuario"
+        /><br /><br />
+        <input
+          required
+          style="width: 200px; height: 30px"
+          class="d"
+          type="text"
+          name="password"
+          placeholder="Contraseña"
+        />
+        <br /><br />
+        <p style="color: red"><%= message%></p>
+        <div>
+          <button class="boton" type="submit">Iniciar sesión</button>
+        </div>
+      </form>
+    </div>
+    <br />
+    <!--FOOTER-->
+    <%- include('partials/footer') %>
+  </body>
+</html>

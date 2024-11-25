@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio</title>
+
+    <%- include('partials/head') %>
+  </head>
+  <body>
+    <!--NAVIGATIONS-->
+    <%- include('partials/navigation') %>
+
+    <!--MAIN CONTENT-->
+    <h2 class="container" style="color: white; text-align: center">
+      Productos:
+    </h2>
+    <form
+      action="/buscar"
+      method="GET"
+      style="text-align: center; padding-top: 1%; padding-bottom: 3%"
+    >
+      <input
+        style="
+          width: 30%;
+          text-align: center;
+          color: white;
+          background-color: rgb(36, 36, 36);
+        "
+        type="text"
+        name="buscar"
+        placeholder="Ingrese producto"
+        id="buscar"
+        required
+      />
+      <input
+        class="boton"
+        style="color: white; background-color: rgb(36, 36, 36)"
+        type="submit"
+        value="Buscar"
+      />
+    </form>
+
+    <div class="contenedor-productos container">
+      <% result.forEach(function(producto) { if(producto.estado == 1){ %>
+      <div class="producto">
+        <form action="/addcarrito" method="post">
+
+          <img
+          width="190px"
+          height="200px"
+          src="/img/productos/<%= encodeURIComponent(producto.imagen); %>"
+          alt="canguro"
+        />
+        <p> <h5><B><%= producto.nombre; %></B></h5> </p>
+        <P> <b>Descripción:</b> <%= producto.descripcion; %></P>
+        <P><b>Categoría:</b> <%= producto.categoria; %></P>
+        <P><b>Precio:</b> <%= producto.precio; %></P>
+
+        <input type="hidden" value="<%= encodeURIComponent(producto.nombre); %>" name="nombre" id="nombre">
+        <input type="hidden" value="<%= encodeURIComponent(producto.id); %>" name="id" id="id">
+        <input type="hidden" value="<%= encodeURIComponent(producto.imagen); %>" name="imagen" id="imagen">
+        <input type="hidden" value="<%= encodeURIComponent(producto.precio); %>" name="precio" id="precio">
+        <input style="text-align: center;" type="number" name="cantidad" min="1" max="50" value="1">
+        <button class="boton" type="button" onclick="addcarrito(this)">Añadir al carrito</button>
+        </form>
+        
+      </div>
+      <% }}); %>
+    </div>
+    <script>
+      function addcarrito(button){
+      // Mostrar el mensaje de SweetAlert con un temporizador
+    Swal.fire({
+      title: 'Producto agregado',
+      text: '¡Producto agregado exitosamente!',
+      icon: 'success',
+      confirmButtonColor: '#3085d6',
+      background: '#f9f9f9',
+      iconColor: '#a5dc86',
+      showConfirmButton: false,  // Ocultar botón de confirmación
+      timer: 400  // El mensaje se cierra automáticamente después de 1.5 segundos
+    });
+
+    // Enviar el formulario automáticamente después de que SweetAlert se muestre
+    setTimeout(() => {
+      button.closest('form').submit(); // Enviar el formulario
+    }, 400); // Esperar lo mismo que el temporizador de SweetAlert
+      }
+    </script>
+
+    <br /><br />
+
+    <!--FOOTER-->
+    <%- include('partials/footer') %>
+  </body>
+</html>

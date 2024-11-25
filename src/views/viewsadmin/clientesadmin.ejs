@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clientes</title>
+    <%- include('../partials/head') %>
+    <script></script>
+  </head>
+  <body>
+    <!--NAVIGATIONS-->
+    <%- include('../partials/navigationadmin') %>
+
+    <!--MAIN CONTENT-->
+    <h3
+      style="
+        text-align: center;
+        color: white;
+        margin-top: 1%;
+        margin-bottom: 3%;
+      "
+    >
+      Clientes registrados
+    </h3>
+
+
+    <div class="contenedor-tabla container">
+        <table border="1px" style="width: 80%; overflow-wrap: normal">
+          <thead>
+            <tr>
+              <th>Cédula</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Correo</th>
+              <th>Celular</th>
+            </tr>
+          </thead>
+  
+          <tbody>
+            <% if (result.length > 0) { %> <% result.forEach((cliente) => { %>
+            <tr>
+                <td><%= cliente.cedula %></td>
+                <td><%= cliente.nombre %></td>
+                <td><%= cliente.apellido %></td>
+                <td><%= cliente.correo %></td>
+                <td><a href="https://wa.me/593<%= cliente.celular %>" target="_blank" class="whatsapp-link">
+                    <i class="fab fa-whatsapp"></i> <%= cliente.celular %>
+                  </a>
+                    
+                    </td>
+              </form>
+            </tr>
+            <% }) } else { %>
+            <tr>
+              <td colspan="4">No hay productos existentes.</td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+
+    <!--FOOTER-->
+    <%- include('../partials/footer') %>
+  </body>
+</html>

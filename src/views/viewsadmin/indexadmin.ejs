@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio admin</title>
+    <%- include('../partials/head') %>
+  </head>
+  <body>
+    <!--NAVIGATIONS-->
+    <%- include('../partials/navigationadmin') %>
+
+    <!--MAIN CONTENT-->
+    <h2 class="container" style="color: white; text-align: center">
+      Productos:
+    </h2>
+    <form
+      action="/buscar"
+      method="GET"
+      style="text-align: center; padding-top: 1%; padding-bottom: 3%"
+    >
+      <input
+        style="
+          width: 30%;
+          text-align: center;
+          color: white;
+          background-color: rgb(36, 36, 36);
+        "
+        type="text"
+        name="buscar"
+        placeholder="Ingrese producto"
+        id="buscar"
+        required
+      />
+      <input
+        class="boton"
+        style="color: white; background-color: rgb(36, 36, 36)"
+        type="submit"
+        value="Buscar"
+      />
+    </form>
+
+    <div class="contenedor-productos container">
+      <% result1.forEach(function(producto) { if(producto.estado == 1){ %>
+      <div class="producto " >
+          <img
+          width="190px"
+          height="200px"
+          src="/img/productos/<%= encodeURIComponent(producto.imagen); %>"
+          alt="imagenproducto
+          "
+        />
+        <p> <h5><B><%= producto.nombre; %></B></h5> </p>
+        <P> <b>Descripción:</b> <%= producto.descripcion; %></P>
+        <P><b>Categoría:</b> <%= producto.categoria; %></P>
+        <P><b>Precio:</b> <%= producto.precio; %></P>
+      </div>
+      <% }}); %>
+    </div>
+    <br /><br />
+
+
+
+
+    <!--FOOTER-->
+    <%- include('../partials/footer') %>
+  </body>
+</html>

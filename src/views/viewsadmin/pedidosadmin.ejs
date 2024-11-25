@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pedidos</title>
+    <%- include('../partials/head') %>
+    <style>
+      /* Estilos del modal */
+      .modal {
+        display: none; /* Oculto por defecto */
+        overflow: auto;
+        position: fixed;
+        z-index: 1; /* Se posiciona encima de otros elementos */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
+        justify-content: center;
+        align-items: center;
+      }
+      .modal2 {
+        display: none; /* Oculto por defecto */
+        overflow: auto;
+        position: fixed;
+        z-index: 1; /* Se posiciona encima de otros elementos */
+        left: 0;
+        top: 0%;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+      }
+      .modal2-content {
+        
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!--NAVIGATIONS-->
+    <%- include('../partials/navigationadmin') %>
+
+    <!--MAIN CONTENT-->
+    <h3
+      style="
+        text-align: center;
+        color: white;
+        margin-top: 1%;
+        margin-bottom: 3%;
+      "
+    >
+      Pedidos:
+    </h3>
+    <div class="contenedor-tabla container">
+      <table border="1px" style="width: 80%; overflow-wrap: normal">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Cliente</th>
+            <th>Fecha</th>
+            <th>Dirección</th>
+            <th>Forma de pago</th>
+            <th>Imagen de transferencia</th>
+            <th>Estado</th>
+            <th>Productos</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% 
+
+    if (result.length > 0) { 
+        result.forEach((pedido) => { 
+    %>
+            
+          <tr>
+              <td><%= pedido.id %></td>
+              <td><%= pedido.idcliente %></td>
+              <td><%= pedido.fecha %></td>
+              <td><%= pedido.direccion %></td>
+              <td><%= pedido.formapago %></td>
+              <td>
+                <a href="#" class="openModalBtn" data-imagen="<%= pedido.imagentrans %>"><%= pedido.imagentrans %></a>
+              </td>
+              <td><%= pedido.estadopedido %></td>
+              <td>
+                    <a href="#" class="openModalBtn2" data-id="<%= pedido.id %>">Productos</a>
+              </td>
+              <td></td>
+            </form>
+          </tr>
+          <% }) } else { %>
+          <tr>
+            <td colspan="4">No hay productos existentes.</td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+
+    
+
+    <!--MODAL-->
+    <div id="myModal" class="modal">
+      <!-- Contenido del modal -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Transferencia</h2><br>
+        <img id="modalImage" src="" alt="imagentrans" style="max-width: 100%; height: auto;">
+      </div>
+    </div>
+
+    <!--MODAL PRODUCTOS-->
+    <div id="myModal2" class="modal2" >
+      <!-- Contenido del modal -->
+      <div class="modal2-content">
+        <span class="close2">&times;</span>
+        <h2>Productos:</h2><br>
+        <table>
+          <thead>
+            <tr>
+              <th>Imagen</th>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Precio Unitario</th>
+              <th>Precio Total</th>
+            </tr>
+          </thead>
+          <tbody id="productosBody">
+            
+          </tbody>
+        </table>
+        
+      </div>
+    </div>
+
+    <!-- JavaScript al final del body -->
+    
+    
+    
+     
+  <script>
+      
+      
+      // Esperar a que el DOM esté completamente cargado
+      document.addEventListener('DOMContentLoaded', function () {
+        // Obtener el modal
+        const modal = document.getElementById("myModal");
+        const modalImage = document.getElementById("modalImage");
+        // Obtener todos los botones que abren el modal
+        const btns = document.querySelectorAll(".openModalBtn");
+        // Obtener el <span> que cierra el modal
+        const span = document.getElementsByClassName("close")[0];
+
+        // Asignar evento de clic a cada botón
+        btns.forEach(function (btn) {
+          btn.onclick = function() {
+            
+            // Obtener la ruta de la imagen del atributo data-imagen
+            const imagenSrc = btn.getAttribute("data-imagen");
+            // Establecer la fuente de la imagen en el modal
+            modalImage.src = "../img/transferencias/" + imagenSrc;
+            modal.style.display = "flex"; // Mostrar el modal
+          }
+        });
+
+        // Cuando el usuario hace clic en <span> (la 'X'), se cierra el modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+
+        
+
+
+
+
+        
+        const btns2 = document.querySelectorAll(".openModalBtn2");
+    const modal2 = document.getElementById("myModal2");
+    const productosBody = document.getElementById("productosBody");
+
+    btns2.forEach(function (btn1) {
+      btn1.onclick = function () {
+        const result1 = JSON.parse('<%- JSON.stringify(result1) %>');
+        const pedidoId = btn1.getAttribute('data-id');
+        productosBody.innerHTML = ''; // Limpia contenido previo
+
+        // Filtrar los productos del pedido
+        const detallesPedido = result1.filter(detalle => detalle.id == pedidoId);
+        
+
+        if (detallesPedido.length > 0) {
+          let totalp= 0;
+          let rows = ""; 
+          detallesPedido.forEach(detalle => {
+            totalp += detalle.preciototal;
+            const row = `
+            <tr>
+                <td><img width="50px" height="50px" src="/img/productos/${encodeURIComponent(detalle.imagen)}" alt="Imagen Producto"></td>
+                <td>${detalle.nombre}</td>
+                <td>${detalle.cantidad}</td>
+                <td>${detalle.preciouni}</td>
+                <td>${detalle.preciototal}</td>
+            </tr>
+            `;
+            rows += row; // Agregamos la fila del producto al acumulador
+
+          });
+          productosBody.innerHTML = rows;
+          const rowTotal = `
+                <tr>
+                    <td><strong>TOTAL:</strong></td>
+                    <td> </td>
+                    <td></td>
+                    <td></td>
+                    <td><strong>${totalp}</strong></td>
+                </tr>
+                `;
+          productosBody.innerHTML += rowTotal;
+        } else {
+          productosBody.innerHTML = '<tr><td colspan="5">No hay productos para este pedido.</td></tr>';
+        }
+
+        modal2.style.display = "flex"; // Mostrar modal
+      };
+    });
+
+    // Cerrar modal
+    const closeModal2 = document.querySelector('.close2');
+    closeModal2.onclick = function () {
+      modal2.style.display = 'none';
+    };
+
+    window.onclick = function (event) {
+      if (event.target == modal2) {
+        modal2.style.display = 'none';
+      }
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  });
+</script>
+
+    <!--FOOTER-->
+    <%- include('../partials/footer') %>
+  </body>
+</html>
+
+
+
+
+
+
