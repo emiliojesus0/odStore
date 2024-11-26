@@ -1,0 +1,1 @@
+Sitio web para la venta de productos, que permite a los administradores gestionar el inventario de manera intuitiva, consultar la información de clientes y realizar un seguimiento detallado de los envíos. La plataforma incluye un carrito de compras y está optimizada para brindar una experiencia de usuario sencilla y eficiente.
