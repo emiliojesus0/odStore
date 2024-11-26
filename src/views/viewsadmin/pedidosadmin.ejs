@@ -91,10 +91,9 @@
             <th>Fecha</th>
             <th>Dirección</th>
             <th>Forma de pago</th>
+            <th colspan="2">Estado</th>
             <th>Imagen de transferencia</th>
-            <th>Estado</th>
             <th>Productos</th>
-            <th></th>
           </tr>
         </thead>
 
@@ -111,14 +110,49 @@
               <td><%= pedido.fecha %></td>
               <td><%= pedido.direccion %></td>
               <td><%= pedido.formapago %></td>
+
+              <form action="/update-pedidoadmin" method="post">
+
+              <td>
+                <select
+                  style="
+                    width: 100px;
+                    background-color: rgb(36, 36, 36);
+                    color: white;
+                    text-align: center;
+                  "
+                  name="estado"
+                >
+                  <option default><%= pedido.estadopedido %></option>
+                  <option>Entregada</option>
+                  <option>Cancelada</option>
+                  <option>Pendiente</option>
+                </select>
+                
+                
+              
+              </td>
+              <input type="hidden" value="<%= pedido.id %>" name="id">
+              <td><button
+                type="submit"
+                style="
+                  background: none;
+                  border: none;
+                  color: rgb(255, 252, 99);
+                "
+              >
+                <i class="fas fa-edit"></i>
+              </button></td>
+            </form>
+
+
               <td>
                 <a href="#" class="openModalBtn" data-imagen="<%= pedido.imagentrans %>"><%= pedido.imagentrans %></a>
               </td>
-              <td><%= pedido.estadopedido %></td>
+              
               <td>
                     <a href="#" class="openModalBtn2" data-id="<%= pedido.id %>">Productos</a>
               </td>
-              <td></td>
             </form>
           </tr>
           <% }) } else { %>
@@ -278,7 +312,6 @@
     <%- include('../partials/footer') %>
   </body>
 </html>
-
 
 
 

@@ -416,6 +416,50 @@ router.post("/update-productoadmin", async (req, res) => {
     res.send("Error en la búsqueda");
   }
 });
+
+router.post("/update-pedidoadmin", async (req, res) => {
+  try {
+    if (req.session.loggedin) {
+      const data = req.body;
+      console.log(data);
+      await pool.query("UPDATE pedidos set estadopedido=? WHERE id=?", [
+        data.estado,
+        data.id,
+      ]);
+      const [result] = await pool.query("SELECT * FROM pedidos");
+      const [result1] = await pool.query(
+        "SELECT ped.id, p.imagen ,p.nombre , dp.cantidad , dp.preciouni , dp.preciototal FROM detallepedido dp JOIN productos p ON dp.idproducto = p.id JOIN pedidos ped ON dp.idpedido = ped.id"
+      );
+
+      // Formatear las fechas
+      const pedidosFormateados = result.map((pedido) => {
+        const fechaFormateada = new Intl.DateTimeFormat("es-EC", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        }).format(new Date(pedido.fecha));
+
+        return {
+          ...pedido,
+          fecha: fechaFormateada, // Reemplaza la fecha original con la formateada
+        };
+      });
+      res.render("viewsadmin/pedidosadmin", {
+        result: pedidosFormateados,
+        result1, // Convertir a JSON para enviarlo al cliente
+      });
+    } else {
+      const [result] = await pool.query(
+        "SELECT * FROM productos where estado = 1"
+      );
+      res.render("index", { result });
+    }
+  } catch (error) {
+    console.error(error);
+    res.send("Error en la búsqueda");
+  }
+});
+
 router.get("/pedidosadmin", async (req, res) => {
   try {
     if (req.session.loggedin) {
